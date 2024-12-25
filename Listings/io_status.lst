@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  io_status                                                          25/12/24  11:49:15  PAGE 1   
+C251 COMPILER V5.60.0,  io_status                                                          25/12/24  13:37:49  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE io_status
@@ -66,7 +66,7 @@ stmt  level    source
    56   1              if(P53==1) data2 |=0x00000800;  else data2 &=0xFFFFF7FF;
    57   1              if(P54==1) data2 |=0x00001000;  else data2 &=0xFFFFEFFF;
    58   1              if(P55==1) data2 |=0x00002000;  else data2 &=0xFFFFDFFF;
-C251 COMPILER V5.60.0,  io_status                                                          25/12/24  11:49:15  PAGE 2   
+C251 COMPILER V5.60.0,  io_status                                                          25/12/24  13:37:49  PAGE 2   
 
    59   1              if(P56==1) data2 |=0x00004000;  else data2 &=0xFFFFBFFF;
    60   1              if(P57==1) data2 |=0x00008000;  else data2 &=0xFFFF7FFF;

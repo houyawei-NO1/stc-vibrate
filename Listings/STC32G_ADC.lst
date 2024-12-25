@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  STC32G_ADC                                                         25/12/24  11:49:16  PAGE 1   
+C251 COMPILER V5.60.0,  STC32G_ADC                                                         25/12/24  13:37:50  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE STC32G_ADC
@@ -66,7 +66,7 @@ stmt  level    source
    55          // °æ±¾: V1.0, 2012-10-22
    56          //========================================================================
    57          u16     Get_ADCResult(u8 channel)       //channel = 0~15
-C251 COMPILER V5.60.0,  STC32G_ADC                                                         25/12/24  11:49:16  PAGE 2   
+C251 COMPILER V5.60.0,  STC32G_ADC                                                         25/12/24  13:37:50  PAGE 2   
 
    58          {
    59   1              u16     adc;

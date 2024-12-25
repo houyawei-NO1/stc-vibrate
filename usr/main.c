@@ -72,7 +72,7 @@ void main(void)
 		delay_ms(500);
 		
 		read_iostatus();
-		printf("%lx;%lx\r\n",data1,data2);	
+		printf("DATA:%lx:%lx\r\n",data1,data2);	
 //		printf("P40:%lx  \r\n",P40);	
 		//temp_control_switch();
 	}
