@@ -1,0 +1,116 @@
+C251 COMPILER V5.60.0,  io_status                                                          25/12/24  11:49:15  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE io_status
+OBJECT MODULE PLACED IN .\Objects\io_status.obj
+COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE usr\io_status.c XSMALL INTR2 BROWSE DEBUG PRINT(.\Listings\io_status.l
+                    -st) OBJECT(.\Objects\io_status.obj) 
+
+stmt  level    source
+
+    1          #include "io_status.h"
+    2          
+    3          void    read_iostatus(void)
+    4          {
+    5   1              //data1= 0x00000000;//p3-p0
+    6   1              //data2= 0x00000000;//p7-p4
+    7   1              if(P00==1) data1 |=0x00000001;  else data1 &=0xFFFFFFFE;//P0
+    8   1              if(P01==1) data1 |=0x00000002;  else data1 &=0xFFFFFFFD;
+    9   1              if(P02==1) data1 |=0x00000004;  else data1 &=0xFFFFFFFB;
+   10   1              if(P03==1) data1 |=0x00000008;  else data1 &=0xFFFFFFF7;
+   11   1              if(P04==1) data1 |=0x00000010;  else data1 &=0xFFFFFFEF;
+   12   1              if(P05==1) data1 |=0x00000020;  else data1 &=0xFFFFFFDF;
+   13   1              if(P06==1) data1 |=0x00000040;  else data1 &=0xFFFFFFBF;
+   14   1              if(P07==1) data1 |=0x00000080;  else data1 &=0xFFFFFF7F;
+   15   1              
+   16   1              if(P10==1) data1 |=0x00000100;  else data1 &=0xFFFFFEFF;//P1
+   17   1              if(P11==1) data1 |=0x00000200;  else data1 &=0xFFFFFDFF;
+   18   1              if(P12==1) data1 |=0x00000400;  else data1 &=0xFFFFFBFF;
+   19   1              if(P13==1) data1 |=0x00000800;  else data1 &=0xFFFFF7FF;
+   20   1              if(P14==1) data1 |=0x00001000;  else data1 &=0xFFFFEFFF;
+   21   1              if(P15==1) data1 |=0x00002000;  else data1 &=0xFFFFDFFF;
+   22   1              if(P16==1) data1 |=0x00004000;  else data1 &=0xFFFFBFFF;
+   23   1              if(P17==1) data1 |=0x00008000;  else data1 &=0xFFFF7FFF;
+   24   1              
+   25   1              if(P20==1) data1 |=0x00010000;  else data1 &=0xFFFEFFFF;//P2
+   26   1              if(P21==1) data1 |=0x00020000;  else data1 &=0xFFFDFFFF;
+   27   1              if(P22==1) data1 |=0x00040000;  else data1 &=0xFFFBFFFF;
+   28   1              if(P23==1) data1 |=0x00080000;  else data1 &=0xFFF7FFFF;
+   29   1              if(P24==1) data1 |=0x00100000;  else data1 &=0xFFEFFFFF;
+   30   1              if(P25==1) data1 |=0x00200000;  else data1 &=0xFFDFFFFF;
+   31   1              if(P26==1) data1 |=0x00400000;  else data1 &=0xFFBFFFFF;
+   32   1              if(P27==1) data1 |=0x00800000;  else data1 &=0xFF7FFFFF;
+   33   1              
+   34   1              if(P30==1) data1 |=0x01000000;  else data1 &=0xFEFFFFFF;//P3
+   35   1              if(P31==1) data1 |=0x02000000;  else data1 &=0xFDFFFFFF;
+   36   1              if(P32==1) data1 |=0x04000000;  else data1 &=0xFBFFFFFF;
+   37   1              if(P33==1) data1 |=0x08000000;  else data1 &=0xF7FFFFFF;
+   38   1              if(P34==1) data1 |=0x10000000;  else data1 &=0xEFFFFFFF;
+   39   1              if(P35==1) data1 |=0x20000000;  else data1 &=0xDFFFFFFF;
+   40   1              if(P36==1) data1 |=0x40000000;  else data1 &=0xBFFFFFFF;
+   41   1              if(P37==1) data1 |=0x80000000;  else data1 &=0x7FFFFFFF;
+   42   1              
+   43   1              //data2
+   44   1              if(P40==1) data2 |=0x00000001;  else data2 &=0xFFFFFFFE;//P4
+   45   1              if(P41==1) data2 |=0x00000002;  else data2 &=0xFFFFFFFD;
+   46   1              if(P42==1) data2 |=0x00000004;  else data2 &=0xFFFFFFFB;
+   47   1              if(P43==1) data2 |=0x00000008;  else data2 &=0xFFFFFFF7;
+   48   1              if(P44==1) data2 |=0x00000010;  else data2 &=0xFFFFFFEF;
+   49   1              if(P45==1) data2 |=0x00000020;  else data2 &=0xFFFFFFDF;
+   50   1              if(P46==1) data2 |=0x00000040;  else data2 &=0xFFFFFFBF;
+   51   1              if(P47==1) data2 |=0x00000080;  else data2 &=0xFFFFFF7F;
+   52   1              
+   53   1              if(P50==1) data2 |=0x00000100;  else data2 &=0xFFFFFEFF;//P5
+   54   1              if(P51==1) data2 |=0x00000200;  else data2 &=0xFFFFFDFF;
+   55   1              if(P52==1) data2 |=0x00000400;  else data2 &=0xFFFFFBFF;
+   56   1              if(P53==1) data2 |=0x00000800;  else data2 &=0xFFFFF7FF;
+   57   1              if(P54==1) data2 |=0x00001000;  else data2 &=0xFFFFEFFF;
+   58   1              if(P55==1) data2 |=0x00002000;  else data2 &=0xFFFFDFFF;
+C251 COMPILER V5.60.0,  io_status                                                          25/12/24  11:49:15  PAGE 2   
+
+   59   1              if(P56==1) data2 |=0x00004000;  else data2 &=0xFFFFBFFF;
+   60   1              if(P57==1) data2 |=0x00008000;  else data2 &=0xFFFF7FFF;
+   61   1              
+   62   1              if(P60==1) data2 |=0x00010000;  else data2 &=0xFFFEFFFF;//P6
+   63   1              if(P61==1) data2 |=0x00020000;  else data2 &=0xFFFDFFFF;
+   64   1              if(P62==1) data2 |=0x00040000;  else data2 &=0xFFFBFFFF;
+   65   1              if(P63==1) data2 |=0x00080000;  else data2 &=0xFFF7FFFF;
+   66   1              if(P64==1) data2 |=0x00100000;  else data2 &=0xFFEFFFFF;
+   67   1              if(P65==1) data2 |=0x00200000;  else data2 &=0xFFDFFFFF;
+   68   1              if(P66==1) data2 |=0x00400000;  else data2 &=0xFFBFFFFF;
+   69   1              if(P67==1) data2 |=0x00800000;  else data2 &=0xFF7FFFFF;
+   70   1              
+   71   1              if(P70==1) data2 |=0x01000000;  else data2 &=0xFEFFFFFF;//P7
+   72   1              if(P71==1) data2 |=0x02000000;  else data2 &=0xFDFFFFFF;
+   73   1              if(P72==1) data2 |=0x04000000;  else data2 &=0xFBFFFFFF;
+   74   1              if(P73==1) data2 |=0x08000000;  else data2 &=0xF7FFFFFF;
+   75   1              if(P74==1) data2 |=0x10000000;  else data2 &=0xEFFFFFFF;
+   76   1              if(P75==1) data2 |=0x20000000;  else data2 &=0xDFFFFFFF;
+   77   1              if(P76==1) data2 |=0x40000000;  else data2 &=0xBFFFFFFF;
+   78   1              if(P77==1) data2 |=0x80000000;  else data2 &=0x7FFFFFFF;
+   79   1      
+   80   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1729     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

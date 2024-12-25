@@ -1,0 +1,182 @@
+C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  11:49:15  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE ntc_sampling
+OBJECT MODULE PLACED IN .\Objects\ntc_sampling.obj
+COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE usr\ntc_sampling.c XSMALL INTR2 BROWSE DEBUG PRINT(.\Listings\ntc_samp
+                    -ling.lst) OBJECT(.\Objects\ntc_sampling.obj) 
+
+stmt  level    source
+
+    1          #include    "ntc_sampling.h"
+    2          
+    3          #ifdef BUBBLE_SORT  //Ê¹ÓÃÃ°ÅÝÅÅÐò£¬È¥µô×î¸ßÖµ¡¢×îµÍÖµ£¬ÇóÖÐ¼äÆ½¾ùÖµ
+    4          u16 ADC_Buffer[16];
+    5          #endif
+    6          
+    7          /******************* ADÅäÖÃº¯Êý *******************/
+    8          void    ADC_config(void)
+    9          {
+   10   1              ADC_InitTypeDef         ADC_InitStructure;              //½á¹¹¶¨Òå
+   11   1              ADC_InitStructure.ADC_SMPduty   = 31;           //ADC Ä£ÄâÐÅºÅ²ÉÑùÊ±¼ä¿ØÖÆ, 0~31£¨×¢Òâ£º SMPDUTY Ò»¶¨²»ÄÜÉèÖÃÐ¡ÓÚ
+             - 10£©
+   12   1              ADC_InitStructure.ADC_CsSetup   = 0;            //ADC Í¨µÀÑ¡ÔñÊ±¼ä¿ØÖÆ 0(Ä¬ÈÏ),1
+   13   1              ADC_InitStructure.ADC_CsHold    = 1;            //ADC Í¨µÀÑ¡Ôñ±£³ÖÊ±¼ä¿ØÖÆ 0,1(Ä¬ÈÏ),2,3
+   14   1              ADC_InitStructure.ADC_Speed     = ADC_SPEED_2X16T;              //ÉèÖÃ ADC ¹¤×÷Ê±ÖÓÆµÂÊ ADC_SPEED_2X1T~ADC_SPEED_2X1
+             -6T
+   15   1              ADC_InitStructure.ADC_AdjResult = ADC_RIGHT_JUSTIFIED;  //ADC½á¹ûµ÷Õû,  ADC_LEFT_JUSTIFIED,ADC_RIGHT_JUSTI
+             -FIED
+   16   1              ADC_Inilize(&ADC_InitStructure);                //³õÊ¼»¯
+   17   1              ADC_PowerControl(ENABLE);                                               //ADCµçÔ´¿ª¹Ø, ENABLE»òDISABLE
+   18   1              NVIC_ADC_Init(DISABLE,Priority_0);              //ÖÐ¶ÏÊ¹ÄÜ, ENABLE/DISABLE; ÓÅÏÈ¼¶(µÍµ½¸ß) Priority_0,Priority_1,Pri
+             -ority_2,Priority_3
+   19   1      }
+   20          
+   21          /***********************************
+   22          ²éÑ¯·½Ê½×öÒ»´ÎADC, chnÎªÍ¨µÀºÅ, chn=0~7¶ÔÓ¦P1.0~P1.7, chn=8~14¶ÔÓ¦P0.0~P0.6, chn=15¶ÔÓ¦BandGapµçÑ¹.
+   23          ***********************************/
+   24          float NTC_ADC_convert(u8 chn)
+   25          {
+   26   1              u16     j;
+   27   1              u8      k;              //Æ½¾ùÖµÂË²¨Ê±Ê¹ÓÃ
+   28   1          float vADC;
+   29   1      
+   30   1              Get_ADCResult(chn);             //²ÎÊýi=0~15,²éÑ¯·½Ê½×öÒ»´ÎADC, ÇÐ»»Í¨µÀºóµÚÒ»´Î×ª»»½á¹û¶ªÆú. ±ÜÃâ²ÉÑùµçÈÝµÄ²Ð´æµçÑ
+             -¹Ó°Ïì.
+   31   1              Get_ADCResult(chn);    //²ÎÊýi=0~15,²éÑ¯·½Ê½×öÒ»´ÎADC, ÇÐ»»Í¨µÀºóµÚ¶þ´Î×ª»»½á¹û¶ªÆú. ±ÜÃâ²ÉÑùµçÈÝµÄ²Ð´æµ
+             -çÑ¹Ó°Ïì.
+   32   1      
+   33   1      #ifdef BUBBLE_SORT  //Ê¹ÓÃÃ°ÅÝÅÅÐò£¬È¥µô×î¸ßÖµ¡¢×îµÍÖµ£¬ÇóÖÐ¼äÆ½¾ùÖµ
+   34   1      
+   35   1              for(k=0; k<16; k++)     ADC_Buffer[k] = Get_ADCResult(chn);
+   36   1              BubbleSort(ADC_Buffer,16);  //Ã°ÅÝÅÅÐò
+   37   1              for(k=4, j=0; k<12; k++) j += ADC_Buffer[k];  //È¡ÖÐ¼ä8¸öÊý¾Ý
+   38   1              j >>= 3;                // ÓÒÒÆ3Î»(³ý8)£¬ÇóÆ½¾ù
+   39   1      
+   40   1      #else   //²ÉÑùÀÛ¼Ó£¬ÇóÆ½¾ùÖµ£¨²»ÐèÒªµÄ»°¿É½« SUM_LENGTH ¶¨ÒåÖµ¸ÄÎª 1 £©
+               
+                       for(k=0, j=0; k<SUM_LENGTH; k++)        j += Get_ADCResult(chn);        // ²ÉÑùÀÛ¼ÓºÍ ²ÎÊý0~15,²éÑ¯·½Ê½×öÒ»´ÎADC, ·µ»Ø
+             -Öµ¾ÍÊÇ½á¹û
+                       j = j / SUM_LENGTH;             // ÇóÆ½¾ù
+               
+               #endif
+   46   1          
+   47   1          printf("12bit: ADC%02d=%04u  ",chn,j);  //Êä³öADCÖµ
+   48   1          
+   49   1          vADC = ((float)j * 5.0 / 4096);  //¼ÆËãNTCµçÑ¹, Vref=5.0V
+   50   1      //    printf("µçÑ¹:%fV  ",vADC);
+   51   1          
+C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  11:49:15  PAGE 2   
+
+   52   1          vADC = CalculationTemperature(j); //¼ÆËãÎÂ¶ÈÖµ
+   53   1      //    printf("T=%f ¡ãC\r\n",vADC);
+   54   1              return vADC;
+   55   1      
+   56   1          //¹ý²ÉÑùÀý×Ó
+   57   1      //      for(k=0, j=0; k<16; k++)        j += Get_ADCResult(chn);        // ²ÉÑùÀÛ¼ÓºÍ ²ÎÊý0~15,²éÑ¯·½Ê½×öÒ»´ÎADC, ·µ»ØÖµ¾ÍÊÇ
+             -½á¹û
+   58   1      //      vADC = j / 4;           // 12Î»ADC£¬²ÉÑù16´ÎÊýÖµÀÛ¼Óºó³ýÒÔ4£¬½á¹û±ãÎª14Î»¹ý²ÉÑùADCÊýÖµ
+   59   1      //    printf("14bit: ADC=%f  ",vADC);
+   60   1      //    vADC = (vADC * 5.0 / 16384);  //¼ÆËãNTCµçÑ¹, Vref=2.5V
+   61   1      //    printf("P13=%fV  ",vADC);
+   62   1              
+   63   1      }
+   64          
+   65          
+   66          /******************** ¼ÆËãÎÂ¶È *********************/
+   67          
+   68          #define     Vref     5.0
+   69          float CalculationTemperature(u16 adc)
+   70          {
+   71   1          float Temperature=0.0;
+   72   1          float R2=0.0;
+   73   1          float R1=10000.0;
+   74   1          float T2=298.15;//273.15+25;
+   75   1          float B=3950.0;//3435.0-¡·3950
+   76   1          float K=273.15;
+   77   1          float R2V=0.0;
+   78   1      
+   79   1          R2V=(adc*(Vref/4096));    //12Î»ADC
+   80   1          R2=(R2V*R1)/(Vref-R2V);
+   81   1              printf("Rntc=%f ¦¸\r\n",R2);
+   82   1          Temperature=1.0/(1.0/T2+log(R2/R1)/B)-K+0.5;
+   83   1      
+   84   1          return Temperature;
+   85   1      }
+   86          
+   87          
+   88          #ifdef BUBBLE_SORT  //Ê¹ÓÃÃ°ÅÝÅÅÐò
+   89          //========================================================================
+   90          // º¯Êý: void DataSwap(u16* data1, u16* data2)
+   91          // ÃèÊö: Êý¾Ý½»»»º¯Êý¡£
+   92          // ²ÎÊý: data1,data2 Òª½»»»µÄÊý¾Ý.
+   93          // ·µ»Ø: none.
+   94          // °æ±¾: VER1.0
+   95          // ÈÕÆÚ: 2021-9-27
+   96          // ±¸×¢: 
+   97          //========================================================================
+   98          void DataSwap(u16* data1, u16* data2)
+   99          {
+  100   1              u16 temp;
+  101   1              temp = *data1;
+  102   1              *data1 = *data2;
+  103   1              *data2 = temp;
+  104   1      }
+  105          
+  106          //========================================================================
+  107          // º¯Êý: void BubbleSort(u16* pDataArry, u8 DataNum)
+  108          // ÃèÊö: Ã°ÅÝÅÅÐòº¯Êý¡£
+  109          // ²ÎÊý: pDataArryÐèÒªÅÅÐòµÄÊý×é£¬DataNumÐèÒªÅÅÐòµÄÊý¾Ý¸öÊý.
+  110          // ·µ»Ø: none.
+  111          // °æ±¾: VER1.0
+  112          // ÈÕÆÚ: 2021-9-27
+  113          // ±¸×¢: 
+  114          //========================================================================
+  115          void BubbleSort(u16* pDataArry, u8 DataNum)
+  116          {
+C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  11:49:15  PAGE 3   
+
+  117   1              bit flag;
+  118   1              u8 i,j;
+  119   1              for(i=0;i<DataNum-1;i++)
+  120   1              {
+  121   2                      flag = 0;
+  122   2                      for(j=0;j<DataNum-i-1;j++)
+  123   2                      {
+  124   3                              if(pDataArry[j] > pDataArry[j+1])
+  125   3                              {
+  126   4                                      flag = 1;
+  127   4                                      DataSwap(&pDataArry[j], &pDataArry[j+1]);
+  128   4                              }
+  129   3                      }
+  130   2                      if(!flag)  //ÉÏÒ»ÂÖ±È½ÏÖÐ²»´æÔÚÊý¾Ý½»»»£¬ÔòÍË³öÅÅÐò
+  131   2                      {
+  132   3                              break;
+  133   3                      }
+  134   2              }
+  135   1      }
+  136          #endif
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       416     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        32          8
+  bit size             =    ------          1
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        35     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

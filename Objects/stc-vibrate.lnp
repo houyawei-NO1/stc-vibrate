@@ -1,0 +1,17 @@
+".\Objects\main.obj",
+".\Objects\gpio_interrupt.obj",
+".\Objects\ebf_control.obj",
+".\Objects\ntc_sampling.obj",
+".\Objects\io_status.obj",
+".\Objects\STC32G_GPIO.obj",
+".\Objects\STC32G_Delay.obj",
+".\Objects\STC32G_UART.obj",
+".\Objects\STC32G_UART_Isr.obj",
+".\Objects\STC32G_NVIC.obj",
+".\Objects\STC32G_ADC.obj",
+".\Objects\STC32G_PWM.obj" 
+TO ".\Objects\stc-vibrate" 
+PRINT(".\Listings\stc-vibrate.map") CASE 
+REMOVEUNUSED 
+CLASSES (EDATA (0x0-0xFFF), 
+HDATA (0x0-0xFFF)) 
