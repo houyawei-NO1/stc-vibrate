@@ -90,19 +90,25 @@ void main(void)
 /******************* IO配置函数 *******************/
 void	GPIO_config(void)
 {
-//	P1_MODE_IN_HIZ(GPIO_Pin_5);		//P1.5设置为高阻输入  adc 
-//	P1_MODE_OUT_PP(GPIO_Pin_4);		//P1.4 设置为推挽 继电器
-//	P3_MODE_IO_PU(GPIO_Pin_All);			//P3.x设置为准双向口  拨码开关
-//	P14=0;
-	P0_MODE_IO_PU(GPIO_Pin_All);
-	P1_MODE_IO_PU(GPIO_Pin_All);
-	P2_MODE_IO_PU(GPIO_Pin_All);
-	P2_MODE_IO_PU(GPIO_Pin_All);
-	P3_MODE_IO_PU(GPIO_Pin_All);
-	P4_MODE_IO_PU(GPIO_Pin_All);
-	P5_MODE_IO_PU(GPIO_Pin_All);
-	P6_MODE_IO_PU(GPIO_Pin_All);
-	P7_MODE_IO_PU(GPIO_Pin_All);
+//	P0_MODE_IO_PU(GPIO_Pin_All);//准双向口
+//	P1_MODE_IO_PU(GPIO_Pin_All);
+//	P2_MODE_IO_PU(GPIO_Pin_All);
+//	P2_MODE_IO_PU(GPIO_Pin_All);
+//	P3_MODE_IO_PU(GPIO_Pin_All);
+//	P4_MODE_IO_PU(GPIO_Pin_All);
+//	P5_MODE_IO_PU(GPIO_Pin_All);
+//	P6_MODE_IO_PU(GPIO_Pin_All);
+//	P7_MODE_IO_PU(GPIO_Pin_All);
+	
+	P0_MODE_IN_HIZ(GPIO_Pin_All);//高阻输入
+	P1_MODE_IN_HIZ(GPIO_Pin_All);
+	P2_MODE_IN_HIZ(GPIO_Pin_All);
+	P3_MODE_IN_HIZ(GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_HIGH);
+	P4_MODE_IN_HIZ(GPIO_Pin_All);
+	P5_MODE_IN_HIZ(GPIO_Pin_All);
+	P6_MODE_IN_HIZ(GPIO_Pin_All);
+	P7_MODE_IN_HIZ(GPIO_Pin_All);
+	P3_MODE_IO_PU(GPIO_Pin_0 | GPIO_Pin_1);	//P3.0,P3.1 设置为准双向口
 }
 
 /***************  串口初始化函数 *****************/

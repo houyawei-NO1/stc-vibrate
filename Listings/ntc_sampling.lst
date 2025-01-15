@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  13:37:49  PAGE 1   
+C251 COMPILER V5.60.0,  ntc_sampling                                                       15/01/25  10:48:06  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ntc_sampling
@@ -66,7 +66,7 @@ stmt  level    source
    49   1          vADC = ((float)j * 5.0 / 4096);  //计算NTC电压, Vref=5.0V
    50   1      //    printf("电压:%fV  ",vADC);
    51   1          
-C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  13:37:49  PAGE 2   
+C251 COMPILER V5.60.0,  ntc_sampling                                                       15/01/25  10:48:06  PAGE 2   
 
    52   1          vADC = CalculationTemperature(j); //计算温度值
    53   1      //    printf("T=%f °C\r\n",vADC);
@@ -134,7 +134,7 @@ stmt  level    source
   114          //========================================================================
   115          void BubbleSort(u16* pDataArry, u8 DataNum)
   116          {
-C251 COMPILER V5.60.0,  ntc_sampling                                                       25/12/24  13:37:49  PAGE 3   
+C251 COMPILER V5.60.0,  ntc_sampling                                                       15/01/25  10:48:06  PAGE 3   
 
   117   1              bit flag;
   118   1              u8 i,j;
